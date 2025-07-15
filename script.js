@@ -87,7 +87,7 @@ for (let semestre in malla) {
     const btn = document.createElement("button");
     btn.textContent = materia;
     btn.className = "materia";
-    const tienePrereq = Object.values(materias).some(arr => arr.includes(materia));
+    const tienePrereq = materias[materia] !== undefined;
     btn.disabled = tienePrereq;
     btn.addEventListener("click", () => aprobarMateria(materia));
     botones[materia] = btn;
