@@ -12,7 +12,7 @@ const materias = {
   "Fundamentos de los materiales": ["Procesos de manufactura moderna"],
   "Proyecto de diseño de ingeniería": ["Significación teológica", "Proyecto de diseño en mecatrónica"],
 
-  "Cálculo vectorial (2)": ["Estática y dinámica"],
+  "Cálculo vectorial": ["Estática y dinámica"],
   "Ecuaciones diferenciales": ["Análisis de sistemas dinámicos"],
   "Señales y sistemas": ["Control de sistemas"],
   "Fluidos y termodinámica": ["Análisis de sistemas dinámicos"],
@@ -35,7 +35,7 @@ const materias = {
 
 const malla = {
   "PRIMER SEMESTRE": [
-    "Cálculo vectorial", "Álgebra lineal", "Introducción a la programación",
+    "Cálculo diferencial", "Álgebra lineal", "Introducción a la programación",
     "Lab de adquisición de señales", "Innovación y diseño de producto",
     "Introduccion a la ingenieria"
   ],
@@ -44,7 +44,7 @@ const malla = {
     "Fundamentos de los materiales", "Proyecto de diseño de ingeniería", "Electiva"
   ],
   "TERCER SEMESTRE": [
-    "Cálculo vectorial (2)", "Ecuaciones diferenciales", "Señales y sistemas",
+    "Cálculo vectorial", "Ecuaciones diferenciales", "Señales y sistemas",
     "Fluidos y termodinámica", "Fundamentos de circuitos eléctricos",
     "Procesos de manufactura moderna"
   ],
