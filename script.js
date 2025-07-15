@@ -73,16 +73,10 @@ const malla = {
   ]
 };
 
+// ... materias y malla como ya los tienes ...
+
 const contenedor = document.getElementById("malla");
 const botones = {};
-
-const requisitos = Object.entries(materias)
-  .filter(([_, dependientes]) => dependientes.includes(materia))
-  .map(([prereq]) => prereq);
-
-const tieneRequisitos = requisitos.length > 0;
-const aprobados = requisitos.every(req => botones[req]?.classList.contains("aprobada"));
-btn.disabled = tieneRequisitos && !aprobados;
 
 // Construir un mapa de requisitos previos
 const requisitosPrevios = {};
@@ -119,9 +113,11 @@ function aprobarMateria(materia) {
   btn.classList.add("aprobada");
   btn.disabled = true;
 
+  // Habilitar materias que dependan de esta
   for (let siguiente in materias) {
     if (materias[siguiente].includes(materia)) {
-      const requisitos = materias[siguiente];
+      // Todos los requisitos de 'siguiente' deben estar aprobados
+      const requisitos = requisitosPrevios[siguiente] || [];
       const aprobados = requisitos.every(req => botones[req]?.classList.contains("aprobada"));
       if (aprobados && botones[siguiente]) {
         botones[siguiente].disabled = false;
