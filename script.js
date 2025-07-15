@@ -73,23 +73,14 @@ const malla = {
   ]
 };
 
-// ... materias y malla como ya los tienes ...
-
 const contenedor = document.getElementById("malla");
 const botones = {};
 
-// Construir un mapa de requisitos previos
-const requisitosPrevios = {};
-for (let prereq in materias) {
-  materias[prereq].forEach(dep => {
-    if (!requisitosPrevios[dep]) requisitosPrevios[dep] = [];
-    requisitosPrevios[dep].push(prereq);
-  });
-}
-
+// Generar todos los botones y deshabilitar solo los que tienen prerequisitos
 for (let semestre in malla) {
   const divSemestre = document.createElement("div");
   divSemestre.className = "semestre";
+
   const titulo = document.createElement("h2");
   titulo.textContent = semestre;
   divSemestre.appendChild(titulo);
@@ -98,8 +89,11 @@ for (let semestre in malla) {
     const btn = document.createElement("button");
     btn.textContent = materia;
     btn.className = "materia";
-    // Deshabilita solo si tiene requisitos previos
-    btn.disabled = requisitosPrevios[materia]?.length > 0;
+    // Si la materia está como clave en el objeto `materias`, es porque desbloquea otras → no tiene requisitos
+    // Si está en los valores, entonces tiene requisitos
+    const tieneRequisitos = Object.values(materias).some(lista => lista.includes(materia));
+    btn.disabled = tieneRequisitos;
+
     btn.addEventListener("click", () => aprobarMateria(materia));
     botones[materia] = btn;
     divSemestre.appendChild(btn);
@@ -113,15 +107,19 @@ function aprobarMateria(materia) {
   btn.classList.add("aprobada");
   btn.disabled = true;
 
-  // Habilitar materias que dependan de esta
-  for (let siguiente in materias) {
-    if (materias[siguiente].includes(materia)) {
-      // Todos los requisitos de 'siguiente' deben estar aprobados
-      const requisitos = requisitosPrevios[siguiente] || [];
-      const aprobados = requisitos.every(req => botones[req]?.classList.contains("aprobada"));
-      if (aprobados && botones[siguiente]) {
-        botones[siguiente].disabled = false;
+  // Recorre todas las materias que la actual desbloquea
+  const desbloqueadas = materias[materia] || [];
+  desbloqueadas.forEach(nombre => {
+    // Verifica si ya se cumplieron todos los requisitos para desbloquear esa materia
+    const requisitosCumplidos = Object.entries(materias).every(([materiaBase, desbloqueaEstas]) => {
+      if (desbloqueaEstas.includes(nombre)) {
+        return botones[materiaBase]?.classList.contains("aprobada");
       }
+      return true;
+    });
+
+    if (requisitosCumplidos && botones[nombre]) {
+      botones[nombre].disabled = false;
     }
-  }
+  });
 }
