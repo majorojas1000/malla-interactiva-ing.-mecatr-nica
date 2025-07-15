@@ -1,5 +1,5 @@
 const materias = {
-  "Cálculo vectorial": ["Cálculo integral"],
+  "Cálculo diferencial": ["Cálculo integral"],
   "Álgebra lineal": ["Cálculo vectorial", "Ecuaciones diferenciales", "Señales y sistemas"],
   "Introducción a la programación": ["Programación avanzada", "Diseño de sistemas con procesadores"],
   "Lab de adquisición de señales": ["Fundamentos de circuitos eléctricos"],
