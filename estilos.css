@@ -18,7 +18,7 @@ h1 {
 }
 
 .semestre {
-  background: #f7f1f1;
+  background: #c4faf8;
   border: 2px solid #ddd;
   border-radius: 10px;
   padding: 10px;
@@ -32,7 +32,7 @@ h1 {
 }
 
 .materia {
-  background: #ffe0ec;
+  background: #bffcc6;
   border: none;
   padding: 10px;
   margin: 6px 0;
@@ -44,11 +44,11 @@ h1 {
 }
 
 .materia:hover {
-  background-color: #fcbad3;
+  background-color: #85e3ff; 
 }
 
 .materia.aprobada {
-  background-color: #c3fbd8;
+  background-color: #d5aaff;
   text-decoration: line-through;
 }
 
