@@ -76,6 +76,23 @@ const malla = {
 const contenedor = document.getElementById("malla");
 const botones = {};
 
+const requisitos = Object.entries(materias)
+  .filter(([_, dependientes]) => dependientes.includes(materia))
+  .map(([prereq]) => prereq);
+
+const tieneRequisitos = requisitos.length > 0;
+const aprobados = requisitos.every(req => botones[req]?.classList.contains("aprobada"));
+btn.disabled = tieneRequisitos && !aprobados;
+
+// Construir un mapa de requisitos previos
+const requisitosPrevios = {};
+for (let prereq in materias) {
+  materias[prereq].forEach(dep => {
+    if (!requisitosPrevios[dep]) requisitosPrevios[dep] = [];
+    requisitosPrevios[dep].push(prereq);
+  });
+}
+
 for (let semestre in malla) {
   const divSemestre = document.createElement("div");
   divSemestre.className = "semestre";
@@ -87,8 +104,8 @@ for (let semestre in malla) {
     const btn = document.createElement("button");
     btn.textContent = materia;
     btn.className = "materia";
-    const tienePrereq = Object.values(materias).some(arr => arr.includes(materia));
-    btn.disabled = tienePrereq;
+    // Deshabilita solo si tiene requisitos previos
+    btn.disabled = requisitosPrevios[materia]?.length > 0;
     btn.addEventListener("click", () => aprobarMateria(materia));
     botones[materia] = btn;
     divSemestre.appendChild(btn);
